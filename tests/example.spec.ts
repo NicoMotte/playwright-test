@@ -1,6 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-test('ouvrir la documentation Playwright', async ({ page }) => {
+test('la page d accueil Playwright a le bon titre', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+
+  await expect(page).toHaveTitle(/Playwright/);
+});
+
+test('le lien Get started permet d ouvrir la documentation', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   await page.getByRole('link', { name: 'Get started' }).click();
