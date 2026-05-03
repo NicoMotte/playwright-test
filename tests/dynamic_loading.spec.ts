@@ -18,3 +18,22 @@ test('Example 1: Element on page that is hidden', async ({ page }) => {
   await expect(page.locator('#finish')).toContainText('Hello World!', { timeout: 10000 });
   
 });
+
+test('Example 2: Element rendered after the fact', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/dynamic_loading');
+  await page.getByRole('link', { name: 'Example 2' }).click();
+
+  const startButton = page.getByRole('button', { name: 'Start' });
+  
+  await expect(startButton).toBeVisible();
+  
+  await startButton.click();
+
+  await expect(page.locator('#loading')).toBeVisible();
+
+  await expect(page.locator('#loading')).toBeHidden({ timeout: 10000 });
+
+  await expect(page.locator('#finish')).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('#finish')).toContainText('Hello World!', { timeout: 10000 });
+  
+});
