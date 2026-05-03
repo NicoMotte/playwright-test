@@ -38,8 +38,10 @@ test('Remove/add', async ({ page }) => {
 
 test('Enable/disable', async ({ page }) => {
   await page.goto('https://the-internet.herokuapp.com/dynamic_controls');
-   
-  const inputField = page.locator('#input-example input');
+  
+  const inputExample = page.locator('#input-example');
+  const inputField = inputExample.locator('input');
+  const message = inputExample.locator('#message');
   const disableButton = page.getByRole('button', { name: 'Disable' });
   const enableButton = page.getByRole('button', { name: 'Enable' });
   //const loading = page.locator('#loading');
@@ -54,6 +56,7 @@ test('Enable/disable', async ({ page }) => {
   //await expect(loading).toBeHidden({ timeout: 10000 });
   await expect(inputField).toBeEnabled({ timeout: 10000 });
   await expect(disableButton).toBeVisible({ timeout: 10000 });
+  await expect(message).toContainText('It\'s enabled!');
 
   await disableButton.click();
 
@@ -62,5 +65,7 @@ test('Enable/disable', async ({ page }) => {
   await expect(disableButton).toBeHidden({ timeout: 10000 });
   await expect(inputField).toBeDisabled({ timeout: 10000 });
   await expect(enableButton).toBeVisible({ timeout: 10000 });
+  await expect(message).toContainText('It\'s disabled!');
+
 });
 
