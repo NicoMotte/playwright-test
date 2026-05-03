@@ -15,5 +15,6 @@ test('Example 1: Element on page that is hidden', async ({ page }) => {
   await expect(page.locator('#loading')).toBeHidden({ timeout: 10000 });
 
   await expect(page.locator('#finish')).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('#finish')).toContainText('Hello World!', { timeout: 10000 });
   
 });
