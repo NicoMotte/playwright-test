@@ -1,3 +1,13 @@
+# Avant-propos (Français): leçons tirées de ce projet
+
+L’automatisation de tests permet d’industrialiser des vérifications répétitives qu’il serait coûteux, lent ou absurde de refaire manuellement à chaque évolution du produit. Elle prend donc une valeur particulière dans une logique de non-régression et d’intégration continue, en particulier sur les projets de taille significative.
+
+En revanche, une suite de tests automatisés ne garantit pas, à elle seule, la qualité du produit. Sa valeur dépend de la pertinence des cas choisis, de la qualité des assertions, de la robustesse des sélecteurs et de son entretien dans le temps. Une base de tests automatisés peut donner une impression trompeuse de couverture si elle vieillit sans être réajustée aux évolutions réelles du produit et de ses risques.
+
+L’automatisation ne remplace donc pas le test manuel. Elle permet surtout de libérer du temps sur les vérifications répétitives pour concentrer davantage l’effort manuel sur l’exploration, l’analyse, les comportements inattendus et la remise en question de la couverture existante.
+
+Le projet m’a aussi montré que l’automatisation est plus efficace quand la testabilité du produit est pensée tôt : structure du DOM, stabilité des identifiants, qualité des locators possibles, clarté des états d’interface, collaboration entre développeurs et testeurs. Sur un produit en cours de développement, l’automatisation reste possible, mais elle devient plus rentable lorsque l’équipe prend en compte explicitement les besoins de testabilité et de maintenabilité.
+
 # Playwright UI Test Automation Project
 
 ## Purpose
