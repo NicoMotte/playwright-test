@@ -1,12 +1,15 @@
 # Avant-propos (Français): leçons tirées de ce projet
 
-L’automatisation de tests permet d’industrialiser des vérifications répétitives qu’il serait coûteux, lent ou absurde de refaire manuellement à chaque évolution du produit. Elle prend donc une valeur particulière dans une logique de non-régression et d’intégration continue, en particulier sur les projets de taille significative.
+L'automatisation de tests permet d'industrialiser des vérifications répétitives qu'il serait coûteux, lent ou absurde de refaire manuellement à chaque évolution du produit. Elle prend donc une valeur particulière dans une logique de non-régression et est la fondation de l'intégration continue, en particulier sur les projets de taille significative.
+L'automatisation permet aussi la libération du poids des tâches répétitives. J'ai moi-même constaté lors de mon expérience dans la validationd des commandes de vol chez Airbus que l'automatisation des analyses de non-regréssion aboutissait non seulement à un temps de livraison nettement plus court (de l'ordre de 60% de réduction) mais également à de meilleures analyses en cas de régression. Le temps supplémentaire dégagé incitait naturellement à des analyses plus approfondies.
 
-En revanche, une suite de tests automatisés ne garantit pas, à elle seule, la qualité du produit. Sa valeur dépend de la pertinence des cas choisis, de la qualité des assertions, de la robustesse des sélecteurs et de son entretien dans le temps. Une base de tests automatisés peut donner une impression trompeuse de couverture si elle vieillit sans être réajustée aux évolutions réelles du produit et de ses risques.
+En revanche, une suite de tests automatisés ne garantit pas, à elle seule, la qualité du produit. Une base de tests automatisés peut donner une impression trompeuse de couverture si elle vieillit sans être réajustée aux évolutions réelles du produit et de ses risques. Comme tout produit, elle est également sujette aux oublis ou aux erreurs de design, en particuliers dans les entreprises où les activités des équipes sont très cadrées: l'équipe en charge du développement peut se retrouver largement déconnectée de l'utilisation réelle du produit.
 
-L’automatisation ne remplace donc pas le test manuel. Elle permet surtout de libérer du temps sur les vérifications répétitives pour concentrer davantage l’effort manuel sur l’exploration, l’analyse, les comportements inattendus et la remise en question de la couverture existante.
+L'automatisation ne remplace donc pas le test manuel. Elle permet surtout de libérer du temps pour concentrer davantage l'effort manuel sur l'exploration, l'analyse, les comportements inattendus et la remise en question de la couverture existante.
 
-Le projet m’a aussi montré que l’automatisation est plus efficace quand la testabilité du produit est pensée tôt : structure du DOM, stabilité des identifiants, qualité des locators possibles, clarté des états d’interface, collaboration entre développeurs et testeurs. Sur un produit en cours de développement, l’automatisation reste possible, mais elle devient plus rentable lorsque l’équipe prend en compte explicitement les besoins de testabilité et de maintenabilité.
+C'est précisément pour cela que j'ai voulu combler mon manque en automatisation : non pas pour opposer test manuel et test automatique, mais pour mieux piloter leur complémentarité. Avec mon expérience de test manuel et mon socle ISTQB Test Manager, l'automatisation me paraît présenter un excellent retour sur investissement. Il faut juste rester lucide sur ses limites.
+
+Le projet m'a montré que l'automatisation est plus efficace quand la testabilité du produit est pensée tôt. Dans le cas d'une page web, il s'agit par exemple de la structure du DOM, la stabilité et l'unicité des identifiants, la qualité des locators possibles, la clarté des états d'interface... Sur un produit en cours de développement, l'automatisation reste possible, mais elle devient plus rentable lorsque l'équipe prend en compte explicitement les besoins de testabilité et de maintenabilité.
 
 # Playwright UI Test Automation Project
 
@@ -50,9 +53,9 @@ The project uses:
 - `beforeEach(...)` for shared setup
 - simple helper functions for repeated actions
 - Playwright locators such as:
-  - `getByRole(...)`
-  - `getByLabel(...)`
-  - `locator(...)`
+- `getByRole(...)`
+- `getByLabel(...)`
+- `locator(...)`
 
 ## Run the tests
 
@@ -71,14 +74,3 @@ npm run test:headed
 Debug mode:
 
 npm run test:debug
-What I worked on
-
-This project helped me practice:
-
-writing UI test scenarios
-choosing robust locators
-handling dynamic page states
-understanding the difference between text, input value, and element state
-using async / await correctly
-refactoring and organizing test code
-running tests locally and through GitHub Actions
