@@ -1,0 +1,507 @@
+{
+  "info": {
+    "_postman_id": "2e46aff7-107d-47ad-b02d-749337524cd3",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55150640",
+    "_collection_link": "https://go.postman.co/collection/55150640-2e46aff7-107d-47ad-b02d-749337524cd3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get data plus savedUrl",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is JSON', function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('URL is present in response', function () {",
+              "    pm.expect(jsonData.url).to.exist;",
+              "});",
+              "",
+              "pm.test('Response time is below 1000 ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test('Response time is below 1 ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1);",
+              "});",
+              "",
+              "pm.collectionVariables.set('savedUrl', jsonData.url);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "postman-echo.com/get",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "get"
+          ]
+        },
+        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+      },
+      "response": []
+    },
+    {
+      "name": "Get data use savedUrl",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is JSON', function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('URL is present in response', function () {",
+              "    pm.expect(jsonData.url).to.exist;",
+              "});",
+              "",
+              "pm.test('Response time is below 1000 ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});",
+              "",
+              "pm.test('Response time is below 1 ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1);",
+              "});",
+              "",
+              "pm.collectionVariables.set('savedUrl', jsonData.url);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{savedUrl}}",
+          "host": [
+            "{{savedUrl}}"
+          ]
+        },
+        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+      },
+      "response": []
+    },
+    {
+      "name": "Post data",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "",
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is JSON', function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "",
+              "pm.test('Response contains submitted data', function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "postman-echo.com/post",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "post"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    },
+    {
+      "name": "GET Status 401",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 401', function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/basic-auth",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "basic-auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Status 404",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 404', function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/status/404",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "status",
+            "404"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET source",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('Response is JSON', function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const jsonData = pm.response.json();\r",
+              "\r",
+              "pm.collectionVariables.set('savedUrl', jsonData.url);\r",
+              "pm.collectionVariables.set('savedFoo', jsonData.args.foo);\r",
+              "\r",
+              "pm.test('savedUrl variable exists', function () {\r",
+              "    pm.expect(pm.collectionVariables.get('savedUrl')).to.exist;\r",
+              "});\r",
+              "\r",
+              "pm.test('savedFoo variable exists', function () {\r",
+              "    pm.expect(pm.collectionVariables.get('savedFoo')).to.equal('bar');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/get?foo=bar",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "get"
+          ],
+          "query": [
+            {
+              "key": "foo",
+              "value": "bar"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET reuse savedUrl and savedFoo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('Response is JSON', function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const jsonData = pm.response.json();\r",
+              "\r",
+              "pm.test('Returned URL contains foo=bar', function () {\r",
+              "    pm.expect(jsonData.url).to.include('foo=bar');\r",
+              "});\r",
+              "\r",
+              "pm.test('Returned args.foo matches saved variable', function () {\r",
+              "    pm.expect(jsonData.args.foo).to.equal(pm.collectionVariables.get('savedFoo'));\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{savedUrl}}",
+          "host": [
+            "{{savedUrl}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST postman-echo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('Response is JSON', function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const jsonData = pm.response.json();\r",
+              "\r",
+              "pm.collectionVariables.set('savedUsername', jsonData.data.username);\r",
+              "pm.collectionVariables.set('savedRole', jsonData.data.role);\r",
+              "\r",
+              "pm.test('Username was saved', function () {\r",
+              "    pm.expect(pm.collectionVariables.get('savedUsername')).to.equal('Nicolas');\r",
+              "});\r",
+              "\r",
+              "pm.test('Role was saved', function () {\r",
+              "    pm.expect(pm.collectionVariables.get('savedRole')).to.equal('tester');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"Nicolas\", \"role\": \"tester\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://postman-echo.com/post",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "post"
+          ]
+        },
+        "description": "Generated from cURL: curl -X POST https://postman-echo.com/post -H \"Content-Type: application/json\" -d '{\"username\": \"Nicolas\", \"role\": \"tester\"}'"
+      },
+      "response": []
+    },
+    {
+      "name": "GET reuse user from postman-echo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test('Response is JSON', function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const jsonData = pm.response.json();\r",
+              "\r",
+              "pm.test('Username was reused correctly', function () {\r",
+              "    pm.expect(jsonData.args.username).to.equal(pm.collectionVariables.get('savedUsername'));\r",
+              "});\r",
+              "\r",
+              "pm.test('Role was reused correctly', function () {\r",
+              "    pm.expect(jsonData.args.role).to.equal(pm.collectionVariables.get('savedRole'));\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://postman-echo.com/get?username={{savedUsername}}&role={{savedRole}}",
+          "protocol": "https",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "get"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "{{savedUsername}}"
+            },
+            {
+              "key": "role",
+              "value": "{{savedRole}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "savedUrl",
+      "value": ""
+    },
+    {
+      "key": "savedFoo",
+      "value": ""
+    },
+    {
+      "key": "savedUsername",
+      "value": ""
+    },
+    {
+      "key": "savedRole",
+      "value": ""
+    }
+  ]
+}
