@@ -11,6 +11,8 @@ C'est précisément pour cela que j'ai voulu combler mon manque en automatisatio
 
 Le projet m'a montré que l'automatisation est plus efficace quand la testabilité du produit est pensée tôt. Dans le cas d'une page web, il s'agit par exemple de la structure du DOM, la stabilité et l'unicité des identifiants, la qualité des locators possibles, la clarté des états d'interface... Sur un produit en cours de développement, l'automatisation reste possible, mais elle devient plus rentable lorsque l'équipe prend en compte explicitement les besoins de testabilité et de maintenabilité.
 
+Pour compléter ce projet d’automatisation sur Playwright, j’ai également ajouté une petite couche de tests API avec Postman, centrée sur le thème de l’authentification. L’objectif était d’introduire une logique de couverture complémentaire : Playwright pour les parcours visibles par l’utilisateur, Postman pour les vérifications au niveau des échanges API (login réussi ou échoué, accès avec token, renouvellement de session). Ce prolongement m’a permis de sortir d’une approche uniquement orientée interface et de mieux penser la couverture de test à plusieurs niveaux.
+
 # Playwright UI Test Automation Project
 
 ## Purpose
@@ -53,9 +55,9 @@ The project uses:
 - `beforeEach(...)` for shared setup
 - simple helper functions for repeated actions
 - Playwright locators such as:
-- `getByRole(...)`
-- `getByLabel(...)`
-- `locator(...)`
+  - `getByRole(...)`
+  - `getByLabel(...)`
+  - `locator(...)`
 
 ## Run the tests
 
@@ -74,3 +76,17 @@ npm run test:headed
 Debug mode:
 
 npm run test:debug
+
+# JSON API automation project
+
+## Login, token use & token refresh
+
+To complement the Playwright UI project, I also added a small Postman-based API testing layer around the same functional theme: authentication.
+
+- **Postman** covers the API side:
+  - successful login
+  - failed login
+  - access with token
+  - token refresh
+
+The goal was not to build a large API project, but to better understand how UI and API tests can support each other. This helped me move away from a UI-only approach and think more in terms of layered test coverage and is a good introduction to more thorough projects.
