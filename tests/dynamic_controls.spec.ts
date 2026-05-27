@@ -1,11 +1,10 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Buttons that create or deactivate page contents", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("https://the-internet.herokuapp.com/dynamic_controls");
-  });
+import { DynamicControlsPage } from "./dynamic_controls.page";
 
+test.describe("Buttons that create or deactivate page contents", () => {
   test("Remove/add", async ({ page }) => {
+    await page.goto("https://the-internet.herokuapp.com/dynamic_controls");
     const checkboxExample = page.locator("#checkbox-example");
     const checkBox = checkboxExample.locator("#checkbox");
     const removeButton = checkboxExample.getByRole("button", {
@@ -40,6 +39,7 @@ test.describe("Buttons that create or deactivate page contents", () => {
   });
 
   test("Enable/disable", async ({ page }) => {
+    await page.goto("https://the-internet.herokuapp.com/dynamic_controls");
     const inputExample = page.locator("#input-example");
     const inputField = inputExample.locator("input");
     const message = inputExample.locator("#message");
@@ -69,5 +69,27 @@ test.describe("Buttons that create or deactivate page contents", () => {
 
     await expectInputBarDisabledState();
     await expect(message).toContainText("It's disabled!");
+  });
+
+  // Improved tests with class DynamicControlsPage
+
+  test("Remove/add with page class", async ({ page }) => {
+    const dynamicControlsPage = new DynamicControlsPage(page);
+
+    dynamicControlsPage.goto();
+
+    await dynamicControlsPage.expectBoxVisibleState();
+
+    await dynamicControlsPage.clickRemoveButton();
+
+    await dynamicControlsPage.expectBoxRemovedState();
+
+    await dynamicControlsPage.expectGoneMessage();
+
+    await dynamicControlsPage.clickAddButton();
+
+    await dynamicControlsPage.expectBoxVisibleState();
+
+    await dynamicControlsPage.expectBackMessage();
   });
 });
