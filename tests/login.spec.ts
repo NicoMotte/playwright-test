@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 
 test("connexion valide", async ({ page }) => {
   await page.goto("https://the-internet.herokuapp.com/login");
@@ -84,5 +84,16 @@ test.describe("Login", () => {
     await loginPage.goto();
     await loginPage.loginAs("tomsmith", "mauvaismotdepasse");
     await loginPage.expectInvalidPassword();
+  });
+});
+
+////////////////////////////////////////////
+// Improved with fixtures
+////////////////////////////////////////////
+
+test.describe("Login improved with fixtures", () => {
+  test("connexion valide", async ({ loginPage }) => {
+    await loginPage.loginAs("tomsmith", "SuperSecretPassword!");
+    await loginPage.expectSuccessfulLogin();
   });
 });

@@ -4,7 +4,7 @@ import { test, expect, APIRequestContext } from "@playwright/test";
 // LOGIN FUNCTION
 // ==================================================
 
-async function login(request: APIRequestContext) {
+async function login(request: APIRequestContext): Promise<LoginBody> {
   const response = await request.post("https://dummyjson.com/auth/login", {
     data: {
       username: "emilys",
@@ -50,7 +50,14 @@ async function loginFailure(request: APIRequestContext) {
 // AUTHME FUNCTION
 // ==================================================
 
-async function authMe(request: APIRequestContext, loginBody: any) {
+type LoginBody = {
+  id: number;
+  username: string;
+  accessToken: string;
+  refreshToken: string;
+};
+
+async function authMe(request: APIRequestContext, loginBody: LoginBody) {
   const meResponse = await request.get("https://dummyjson.com/auth/me", {
     headers: {
       Authorization: loginBody.accessToken,
@@ -63,9 +70,35 @@ async function authMe(request: APIRequestContext, loginBody: any) {
 
   expect(meBody.username).toBe("emilys");
 
-  if (loginBody.id !== undefined) {
-    expect(meBody.id).toBe(loginBody.id);
-  }
+  expect(meBody.id).toBe(loginBody.id);
+
+  return meBody;
+}
+
+// ==================================================
+// AUTHME REFRESH FUNCTION
+// ==================================================
+
+type RefreshBody = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+async function authMeRefresh(
+  request: APIRequestContext,
+  refreshBody: RefreshBody,
+): Promise<RefreshBody> {
+  const meResponse = await request.get("https://dummyjson.com/auth/me", {
+    headers: {
+      Authorization: refreshBody.accessToken,
+    },
+  });
+
+  expect(meResponse.status()).toBe(200);
+
+  const meBody = await meResponse.json();
+
+  expect(meBody.username).toBe("emilys");
 
   return meBody;
 }
@@ -74,7 +107,7 @@ async function authMe(request: APIRequestContext, loginBody: any) {
 // TOKEN REFRESH FUNCTION
 // ==================================================
 
-async function refresh(request: APIRequestContext, loginBody: any) {
+async function refresh(request: APIRequestContext, loginBody: LoginBody) {
   const refreshResponse = await request.post(
     "https://dummyjson.com/auth/refresh",
     {
@@ -131,5 +164,5 @@ test("API auth/me with token then token refresh", async ({ request }) => {
 
   const refreshBody = await refresh(request, loginBody);
 
-  await authMe(request, refreshBody); // Only occurrence of authMe using the body of the refresh request. Had to add if (loginBody.id !== undefined) in the authMe function. Works but not very clean
+  await authMeRefresh(request, refreshBody);
 });
