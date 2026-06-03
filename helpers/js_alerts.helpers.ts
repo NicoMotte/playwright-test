@@ -1,4 +1,5 @@
 import { expect, Page } from "@playwright/test";
+import { JavaScriptAlertsPage } from "../pages/js_alerts.page";
 
 type DialogOptions = {
   expectedMessage: string;
@@ -9,11 +10,14 @@ type DialogOptions = {
 };
 
 // Utility function for JavaScript dialogs
-export async function handleDialog(page: Page, options: DialogOptions) {
+export async function handleDialog(
+  javaScriptAlertsPage: JavaScriptAlertsPage,
+  options: DialogOptions,
+) {
   const { expectedMessage, action, buttonName, expectedResult, promptText } =
     options;
 
-  page.once("dialog", async (dialog) => {
+  javaScriptAlertsPage.page.once("dialog", async (dialog) => {
     expect(dialog.message()).toBe(expectedMessage);
 
     if (action === "accept") {
@@ -23,6 +27,11 @@ export async function handleDialog(page: Page, options: DialogOptions) {
     }
   });
 
-  await page.getByRole("button", { name: buttonName }).click();
-  await expect(page.locator("#result")).toContainText(expectedResult);
+  await javaScriptAlertsPage.page
+    .getByRole("button", { name: buttonName })
+    .click();
+
+  await expect(javaScriptAlertsPage.page.locator("#result")).toContainText(
+    expectedResult,
+  );
 }
