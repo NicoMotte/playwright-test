@@ -1,10 +1,10 @@
-import { test, expect, APIRequestContext } from "@playwright/test";
+import { expect, APIRequestContext } from "@playwright/test";
 
 // ==================================================
 // LOGIN FUNCTION
 // ==================================================
 
-async function login(request: APIRequestContext): Promise<LoginBody> {
+export async function login(request: APIRequestContext): Promise<LoginBody> {
   const response = await request.post("https://dummyjson.com/auth/login", {
     data: {
       username: "emilys",
@@ -28,7 +28,7 @@ async function login(request: APIRequestContext): Promise<LoginBody> {
 // LOGIN FAILURE FUNCTION
 // ==================================================
 
-async function loginFailure(request: APIRequestContext) {
+export async function loginFailure(request: APIRequestContext) {
   const response = await request.post("https://dummyjson.com/auth/login", {
     data: {
       username: "emilys",
@@ -57,7 +57,7 @@ type LoginBody = {
   refreshToken: string;
 };
 
-async function authMe(request: APIRequestContext, loginBody: LoginBody) {
+export async function authMe(request: APIRequestContext, loginBody: LoginBody) {
   const meResponse = await request.get("https://dummyjson.com/auth/me", {
     headers: {
       Authorization: loginBody.accessToken,
@@ -84,7 +84,7 @@ type RefreshBody = {
   refreshToken: string;
 };
 
-async function authMeRefresh(
+export async function authMeRefresh(
   request: APIRequestContext,
   refreshBody: RefreshBody,
 ): Promise<RefreshBody> {
@@ -107,7 +107,10 @@ async function authMeRefresh(
 // TOKEN REFRESH FUNCTION
 // ==================================================
 
-async function refresh(request: APIRequestContext, loginBody: LoginBody) {
+export async function refresh(
+  request: APIRequestContext,
+  loginBody: LoginBody,
+) {
   const refreshResponse = await request.post(
     "https://dummyjson.com/auth/refresh",
     {
@@ -127,42 +130,3 @@ async function refresh(request: APIRequestContext, loginBody: LoginBody) {
 
   return refreshBody;
 }
-
-// ==================================================
-// API login success with Playwright
-// ==================================================
-
-test("API login success with Playwright", async ({ request }) => {
-  await login(request);
-});
-
-// ==================================================
-// API login failure with Playwright
-// ==================================================
-
-test("API login failure with Playwright", async ({ request }) => {
-  await loginFailure(request);
-});
-
-// ==================================================
-// API auth/me with token
-// ==================================================
-
-test("API auth/me with token", async ({ request }) => {
-  const loginBody = await login(request);
-  await authMe(request, loginBody);
-});
-
-// ==================================================
-// API auth/me with token then token refresh
-// ==================================================
-
-test("API auth/me with token then token refresh", async ({ request }) => {
-  const loginBody = await login(request);
-
-  await authMe(request, loginBody);
-
-  const refreshBody = await refresh(request, loginBody);
-
-  await authMeRefresh(request, refreshBody);
-});

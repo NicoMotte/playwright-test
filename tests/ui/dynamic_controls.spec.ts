@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { DynamicControlsPage } from "./dynamic_controls.page";
+import { DynamicControlsPage } from "../../pages/dynamic_controls.page";
 
 test.describe("Buttons that create or deactivate page contents", () => {
   test("Remove/add", async ({ page }) => {
