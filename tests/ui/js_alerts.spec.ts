@@ -1,5 +1,5 @@
-import { test } from "@playwright/test";
-import { handleDialog } from "../../helpers/js_alerts_helpers";
+import { test } from "../../fixtures/js_alerts.fixtures";
+import { handleDialog } from "../../helpers/js_alerts.helpers";
 
 test.describe("JavaScript Alerts", () => {
   test.beforeEach(async ({ page }) => {

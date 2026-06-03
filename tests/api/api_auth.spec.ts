@@ -5,7 +5,7 @@ import {
   authMe,
   authMeRefresh,
   refresh,
-} from "../../helpers/api_auth_helpers";
+} from "../../helpers/api_auth.helpers";
 
 // ==================================================
 // API login success with Playwright
