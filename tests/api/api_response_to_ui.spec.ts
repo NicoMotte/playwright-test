@@ -51,13 +51,7 @@ test("connexion valide avec observation réseau", async ({ page }) => {
   const authRequest = await authRequestPromise;
   const authResponse = await authResponsePromise;
 
-  console.log("Auth request URL =", authRequest.url());
-  console.log("Auth request method =", authRequest.method());
-
   expect(authRequest.method()).toBe("POST");
-
-  console.log("Auth URL =", authResponse.url());
-  console.log("Auth status =", authResponse.status());
 
   expect(authResponse.status()).toBe(303);
 
