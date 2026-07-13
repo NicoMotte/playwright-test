@@ -7,7 +7,12 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
-    "test:debug": "playwright test --debug"
+    "test:debug": "playwright test --debug",
+    "test:unit": "vitest run tests/unit",
+    "test:unit:watch": "vitest tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:vitest": "vitest run",
+    "test:all": "npm run test:vitest && npm run test"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +20,8 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0"
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   }
 }
